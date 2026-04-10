@@ -60,11 +60,11 @@ export default function ProfilePage() {
           copy="Manage cards, bookings, guest details, documents, support threads, and rewards from the same place you book tours, nightlife, transfers, and premium movement."
         />
       </div>
-      <div className="grid gap-4 xl:grid-cols-[0.92fr_1.08fr]">
+      <div className="grid gap-4 lg:grid-cols-[0.92fr_1.08fr]">
         <div className="space-y-4">
           <div className="chapter-card">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                 <div className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-[1.6rem] bg-[#08141F] text-2xl font-semibold text-white">
                   WD
                 </div>
@@ -73,7 +73,7 @@ export default function ProfilePage() {
                   <p className="mt-1 text-sm text-muted-foreground">Black tier member · Concierge access · Cape Town + Dubai</p>
                 </div>
               </div>
-              <span className="metric-chip">Profile 100%</span>
+              <span className="metric-chip self-start">Profile 100%</span>
             </div>
             <div className="mt-6 grid gap-3 text-sm text-muted-foreground">
               <div className="rounded-[1.2rem] border border-foreground/8 bg-white/72 p-4">

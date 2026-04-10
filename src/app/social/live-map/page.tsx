@@ -11,7 +11,7 @@ export default function LiveMapPage() {
     <div className="page-shell space-y-8 py-8">
       <div className="chapter-card">
         <p className="section-tag">CapePulse Live Map</p>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight">See where Cape Town is on fire right now.</h1>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">See where Cape Town is on fire right now.</h1>
         <p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">
           Check the hottest zones, watch the crowd commentary roll in, and turn the vibe into a booking instantly, whether that means a dinner
           table, a club entry, a luxury transfer, or a full night plan.
@@ -24,7 +24,7 @@ export default function LiveMapPage() {
         <div className="space-y-4">
           {heatZones.map((zone) => (
             <div key={zone.id} className="chapter-card">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{zone.emoji}</span>
                   <div>
@@ -47,7 +47,7 @@ export default function LiveMapPage() {
             <p className="section-tag">Live commentary</p>
             <span className="metric-chip">Tweet-style feed</span>
           </div>
-          <div className="feed-marquee h-[38rem]">
+          <div className="feed-marquee h-[22rem] sm:h-[28rem] xl:h-[38rem]">
             <div className="feed-marquee-track">
               {liveFeed.map((post, index) => (
                 <div key={`${post.id}-${index}`} className="rounded-[1.35rem] border border-foreground/8 bg-white/74 p-3">

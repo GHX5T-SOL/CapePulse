@@ -52,7 +52,7 @@ export function SectionIntro({
   return (
     <div className="max-w-3xl space-y-4">
       <p className="section-tag">{eyebrow}</p>
-      <h2 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
+      <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-balance text-foreground sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       <p className="max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">{copy}</p>
@@ -76,13 +76,13 @@ export function HighlightCard({
 }) {
   const content = (
     <Card className="glass-panel overflow-hidden rounded-[2rem] border-white/70 bg-white/30 transition-transform duration-300 hover:-translate-y-1">
-      <div className="relative h-60 overflow-hidden">
+      <div className="relative h-52 overflow-hidden sm:h-60">
         <Image alt={title} className="h-full w-full object-cover" fill sizes="(min-width: 1024px) 33vw, 100vw" src={media} />
         <div className="absolute inset-0 bg-gradient-to-t from-[#08141F]/55 via-transparent to-transparent" />
         {stat ? <Badge className="absolute left-4 top-4 bg-white/80 text-foreground hover:bg-white/80">{stat}</Badge> : null}
       </div>
       <CardHeader className="gap-3">
-        <CardTitle className="text-2xl">{title}</CardTitle>
+        <CardTitle className="text-xl sm:text-2xl">{title}</CardTitle>
         <CardDescription className="text-sm leading-6 text-muted-foreground">{detail}</CardDescription>
       </CardHeader>
       {href ? (
@@ -116,13 +116,13 @@ export function ActionPair({
 }) {
   return (
     <>
-      <Link className={cn(buttonVariants({ size: "lg" }), "h-11 rounded-full px-5 text-white")} href={primaryHref}>
+      <Link className={cn(buttonVariants({ size: "lg" }), "h-11 w-full justify-center rounded-full px-5 text-white sm:w-auto")} href={primaryHref}>
         {primaryLabel}
       </Link>
       <Link
         className={cn(
           buttonVariants({ size: "lg", variant: "outline" }),
-          "h-11 rounded-full bg-white/86 px-5 text-[#08141F] hover:bg-white"
+          "h-11 w-full justify-center rounded-full bg-white/86 px-5 text-[#08141F] hover:bg-white sm:w-auto"
         )}
         href={secondaryHref}
       >

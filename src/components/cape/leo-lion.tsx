@@ -35,15 +35,15 @@ const leoActions = [
 export function LeoLionDock() {
   return (
     <Dialog>
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
+      <div className="fixed bottom-3 right-3 z-50 flex flex-col items-end gap-2 sm:bottom-4 sm:right-4">
         <motion.div
           animate={{ y: [0, -8, 0] }}
-          className="glass-panel max-w-[15rem] rounded-[1.7rem] px-4 py-3 text-sm leading-6 text-foreground shadow-[0_20px_60px_rgba(8,20,31,0.18)]"
+          className="glass-panel hidden max-w-[15rem] rounded-[1.7rem] px-4 py-3 text-sm leading-6 text-foreground shadow-[0_20px_60px_rgba(8,20,31,0.18)] sm:block"
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
           Hi, I&apos;m Leo. Want a tour, table, transfer, or VIP arrival?
         </motion.div>
-        <DialogTrigger className="group glass-strong relative flex h-[6.7rem] w-[6.7rem] items-center justify-center overflow-hidden rounded-[2rem] border border-white/80 shadow-[0_24px_80px_rgba(8,20,31,0.2)]">
+        <DialogTrigger className="group glass-strong relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-[1.6rem] border border-white/80 shadow-[0_24px_80px_rgba(8,20,31,0.2)] sm:h-[6.7rem] sm:w-[6.7rem] sm:rounded-[2rem]">
           <video
             aria-hidden="true"
             autoPlay
@@ -60,7 +60,7 @@ export function LeoLionDock() {
           </div>
         </DialogTrigger>
       </div>
-      <DialogContent className="max-h-[88svh] overflow-y-auto rounded-[2rem] border-white/80 bg-white/92 p-0 backdrop-blur-xl sm:max-w-3xl">
+      <DialogContent className="mx-3 max-h-[86svh] overflow-y-auto rounded-[2rem] border-white/80 bg-white/92 p-0 backdrop-blur-xl sm:mx-0 sm:max-w-3xl">
         <DialogHeader className="border-b border-foreground/8 px-6 py-5">
           <DialogTitle className="text-2xl">Leo, your CapePulse concierge</DialogTitle>
           <DialogDescription>

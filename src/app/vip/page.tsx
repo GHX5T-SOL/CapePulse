@@ -10,7 +10,7 @@ export default function VipPage() {
           <ShieldCheckIcon className="size-5 text-[#2F6B4F]" />
           <p className="section-tag">VIP</p>
         </div>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight">Discreet arrivals, polished movement, and premium support on request.</h1>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Discreet arrivals, polished movement, and premium support on request.</h1>
         <p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">
           CapePulse handles executive airport arrivals, discreet city movement, luxury transport, private aviation, villa coordination, and guest support for people who want a higher-touch experience.
         </p>

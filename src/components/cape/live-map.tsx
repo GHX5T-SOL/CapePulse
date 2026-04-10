@@ -57,11 +57,17 @@ export function LiveMap({ condensed = false }: { condensed?: boolean }) {
   }, []);
 
   if (!mounted) {
-    return <div className="chapter-card h-[24rem] animate-pulse bg-white/30" />;
+    return <div className="chapter-card h-[20rem] animate-pulse bg-white/30 sm:h-[24rem]" />;
   }
 
   return (
-    <div className={condensed ? "h-[24rem] overflow-hidden rounded-[2rem]" : "h-[38rem] overflow-hidden rounded-[2.2rem]"}>
+    <div
+      className={
+        condensed
+          ? "h-[20rem] overflow-hidden rounded-[2rem] sm:h-[24rem]"
+          : "h-[24rem] overflow-hidden rounded-[2.2rem] sm:h-[30rem] lg:h-[38rem]"
+      }
+    >
       <MapContainer center={[-33.9249, 18.4241]} className="h-full w-full" scrollWheelZoom={false} zoom={11.1}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

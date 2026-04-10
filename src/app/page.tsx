@@ -32,7 +32,7 @@ export default function HomePage() {
   const buzzFeed = [...feedPosts, ...feedPosts];
 
   return (
-    <div className="space-y-20 pb-12">
+    <div className="space-y-16 pb-12 sm:space-y-20">
       <RemotionHero />
 
       <section className="page-shell">
@@ -119,7 +119,7 @@ export default function HomePage() {
               <p className="section-tag">Live commentary</p>
               <span className="metric-chip">Auto-updating</span>
             </div>
-            <div className="feed-marquee h-[24rem]">
+            <div className="feed-marquee h-[18rem] sm:h-[24rem]">
               <div className="feed-marquee-track">
                 {buzzFeed.map((post, index) => (
                   <div key={`${post.id}-${index}`} className="rounded-[1.35rem] border border-foreground/8 bg-white/72 p-3">
