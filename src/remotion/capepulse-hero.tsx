@@ -57,25 +57,6 @@ export function CapePulseHeroComposition() {
                     "linear-gradient(180deg, rgba(8,20,31,0.08), rgba(8,20,31,0.65)), radial-gradient(circle at 14% 18%, rgba(255,181,71,0.28), transparent 26%), radial-gradient(circle at 86% 16%, rgba(0,163,230,0.22), transparent 22%)",
                 }}
               />
-              <AbsoluteFill style={{ justifyContent: "flex-end", padding: 72, gap: 12 }}>
-                <div
-                  style={{
-                    fontSize: 18,
-                    letterSpacing: "0.28em",
-                    textTransform: "uppercase",
-                    color: "rgba(246,251,255,0.72)",
-                    fontFamily: "IBM Plex Mono, monospace",
-                  }}
-                >
-                  {slide.title}
-                </div>
-                <div style={{ fontSize: 78, lineHeight: 0.9, fontFamily: "Sora, sans-serif", color: "#F6FBFF", maxWidth: 860 }}>
-                  Cape Town, personally orchestrated.
-                </div>
-                <div style={{ maxWidth: 760, fontSize: 28, lineHeight: 1.4, color: "rgba(246,251,255,0.84)" }}>
-                  {slide.subtitle}
-                </div>
-              </AbsoluteFill>
             </AbsoluteFill>
           </Sequence>
         );

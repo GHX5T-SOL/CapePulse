@@ -13,12 +13,12 @@ import { cn } from "@/lib/utils";
 export function RemotionHero() {
   return (
     <section className="page-shell relative pb-10 pt-3">
-      <div className="relative min-h-[92svh] overflow-hidden rounded-[2rem] border border-white/70 sm:min-h-[82svh]">
+      <div className="relative min-h-[88svh] overflow-hidden rounded-[2rem] border border-white/70 sm:min-h-[86svh] xl:min-h-[82svh]">
         <div className="hero-mesh" />
         <video
           aria-hidden="true"
           autoPlay
-          className="h-[92svh] w-full object-cover sm:h-[82svh]"
+          className="h-[88svh] w-full object-cover sm:h-[86svh] xl:h-[82svh]"
           loop
           muted
           playsInline
@@ -27,17 +27,18 @@ export function RemotionHero() {
         >
           <source src="/media/capepulse-hero.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#08141F]/24 via-[#08141F]/8 to-[#08141F]/76" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08141F]/34 via-[#08141F]/16 to-[#08141F]/78" />
         <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-white/20 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-5 pt-18 sm:px-8 sm:pb-8 sm:pt-24 md:px-10">
-          <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
-            <div className="flex flex-col justify-end">
+        <div className="absolute inset-0 z-10 px-4 py-5 sm:px-8 sm:py-8 md:px-10">
+          <div className="flex h-full items-center">
+            <div className="grid w-full gap-6 xl:grid-cols-[1.12fr_0.88fr] xl:gap-8">
+              <div className="flex flex-col justify-center">
               <Badge className="mb-6 w-fit gap-2 rounded-full border border-white/60 bg-white/20 px-3 py-1.5 text-white hover:bg-white/20">
                 <SparklesIcon className="size-3.5" />
                 Cape Town booking, concierge, and live-city access
               </Badge>
-              <div className="max-w-4xl space-y-6">
-                <h1 className="text-shadow-soft font-heading text-4xl font-semibold leading-[0.96] tracking-tight text-white sm:text-6xl lg:text-8xl">
+              <div className="max-w-4xl space-y-5 sm:space-y-6">
+                <h1 className="text-shadow-soft font-heading max-w-4xl text-4xl font-semibold leading-[0.96] tracking-tight text-white sm:text-5xl lg:text-7xl xl:text-[5.4rem]">
                   Tours, nightlife, transfers, and VIP movement in one Cape Town app.
                 </h1>
                 <p className="max-w-xl text-sm leading-6 text-white/92 sm:hidden">
@@ -75,7 +76,7 @@ export function RemotionHero() {
                     Open the CapePulse map
                   </Link>
                 </div>
-                <div className="mt-1 grid grid-cols-2 gap-3 md:hidden">
+                <div className="mt-2 grid grid-cols-2 gap-3 xl:hidden">
                   {siteMetrics.slice(0, 4).map((metric) => (
                     <div key={metric.label} className="rounded-[1.2rem] border border-white/16 bg-white/10 p-3">
                       <p className="font-heading text-2xl text-white">{metric.value}</p>
@@ -85,10 +86,11 @@ export function RemotionHero() {
                 </div>
               </div>
             </div>
-            <div className="hidden md:block">
+              </div>
+              <div className="hidden xl:block">
               <motion.div
                 animate={{ y: [0, -8, 0] }}
-                className="glass-panel refractive-border self-end rounded-[2rem] p-5 text-white"
+                className="glass-panel refractive-border rounded-[2rem] p-5 text-white"
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
                 <div className="flex items-start justify-between gap-4">

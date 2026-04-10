@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { MessageSquareTextIcon, ShieldCheckIcon, SparklesIcon } from "lucide-react";
+import { useState } from "react";
+import { MessageSquareTextIcon, MicIcon, ShieldCheckIcon, SparklesIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { heatZones, tours } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +34,105 @@ const leoActions = [
   },
 ];
 
+const leoQuickPrompts = [
+  "Plan me a Peninsula day with penguins and lunch.",
+  "Where is hot tonight for dinner and music?",
+  "I need an airport pickup and villa check-in.",
+  "Can you help me gift an experience?",
+];
+
+type ChatMessage = {
+  id: number;
+  role: "leo" | "guest";
+  text: string;
+};
+
+function getLeoReply(message: string) {
+  const prompt = message.toLowerCase();
+
+  if (prompt.includes("tonight") || prompt.includes("music") || prompt.includes("club") || prompt.includes("dinner")) {
+    return "For a polished dinner-to-music night, I would start with the Waterfront for early cocktails, then move into Camps Bay for sunset or Kloof Street for later energy. I can line up a table and a return driver in the same booking flow.";
+  }
+
+  if (prompt.includes("airport") || prompt.includes("villa") || prompt.includes("chauffeur") || prompt.includes("transfer")) {
+    return "I can stage airport reception, chauffeur timing, villa check-in, and a return transfer so the whole arrival feels seamless. Start in the booking desk and choose Transfers or VIP depending on how hands-on you want it.";
+  }
+
+  if (prompt.includes("gift") || prompt.includes("surprise") || prompt.includes("experience")) {
+    return "A sunset drive, cellar lunch, yacht session, or couples Peninsula day all work beautifully as giftable experiences. CapePulse can package the booking with a note and direct delivery to the recipient.";
+  }
+
+  if (prompt.includes("safari") || prompt.includes("wine") || prompt.includes("peninsula") || prompt.includes("tour")) {
+    return "If you want the classic Cape Town arc, I would shortlist the Peninsula Signal Drive, Stellenbosch & Franschhoek Flair, or the Big Five Day Window depending on whether you want coastline, wine country, or wildlife.";
+  }
+
+  return "I can help you choose the best tour, find what is hot tonight, arrange movement around Cape Town, or stage a premium request. Tell me the mood, budget, and timing and I will point you to the best next step.";
+}
+
 export function LeoLionDock() {
+  const [draft, setDraft] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: 1,
+      role: "leo",
+      text: "Hi, I'm Leo. Ask me about tours, nightlife, transfers, gifting, or VIP movement and I will point you in the right direction.",
+    },
+    {
+      id: 2,
+      role: "guest",
+      text: "Where should we go tonight if we want a fun crowd and easy transport?",
+    },
+    {
+      id: 3,
+      role: "leo",
+      text: "Camps Bay is perfect for sunset energy and Kloof Street is stronger later. I can line up dinner, club entry, and a return pickup in one move.",
+    },
+  ]);
+
+  function addConversation(prompt: string) {
+    const cleanPrompt = prompt.trim();
+
+    if (!cleanPrompt) {
+      return;
+    }
+
+    setMessages((current) => {
+      const nextId = current.length + 1;
+
+      return [
+        ...current,
+        { id: nextId, role: "guest", text: cleanPrompt },
+        { id: nextId + 1, role: "leo", text: getLeoReply(cleanPrompt) },
+      ];
+    });
+  }
+
+  function handleSend() {
+    if (!draft.trim()) {
+      return;
+    }
+
+    addConversation(draft);
+    setDraft("");
+  }
+
+  function handleVoiceDemo() {
+    if (isListening) {
+      return;
+    }
+
+    setIsListening(true);
+
+    window.setTimeout(() => {
+      const transcript = "Leo, can you set up dinner, a driver, and somewhere fun after?";
+
+      setIsListening(false);
+      setDraft("");
+      addConversation(transcript);
+    }, 1400);
+  }
+
   return (
     <Dialog>
       <div className="fixed bottom-3 right-3 z-50 flex flex-col items-end gap-2 sm:bottom-4 sm:right-4">
@@ -67,77 +167,141 @@ export function LeoLionDock() {
             Ask for the best route, tonight&apos;s hottest zone, a polished pickup, or a premium arrival plan and Leo points you to the right next step.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 p-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="space-y-4">
-            <div className="chapter-card">
-              <div className="flex items-center gap-3">
-                <SparklesIcon className="size-5 text-[#00A3E6]" />
-                <p className="font-semibold">Start here</p>
-              </div>
-              <div className="mt-4 space-y-3">
-                {leoActions.map((action) => (
-                  <Link
-                    key={action.title}
-                    className="block rounded-[1.3rem] border border-foreground/8 bg-white/72 p-4 transition hover:bg-white"
-                    href={action.href}
-                  >
-                    <p className="font-medium">{action.title}</p>
-                    <p className="mt-1 text-sm leading-6 text-muted-foreground">{action.copy}</p>
-                  </Link>
-                ))}
-              </div>
+        <div className="space-y-4 p-4 sm:p-6">
+          <div className="chapter-card">
+            <div className="flex items-center gap-3">
+              <MessageSquareTextIcon className="size-5 text-[#FF6B4A]" />
+              <p className="font-semibold">Chat with Leo</p>
             </div>
-            <div className="chapter-card">
-              <div className="flex items-center gap-3">
-                <ShieldCheckIcon className="size-5 text-[#2F6B4F]" />
-                <p className="font-semibold">Guest-ready flow</p>
+            <div className="mt-4 grid gap-4 lg:grid-cols-[1.12fr_0.88fr]">
+              <div className="rounded-[1.4rem] border border-foreground/8 bg-white/72 p-4">
+                <div className="max-h-[18rem] space-y-3 overflow-y-auto pr-1">
+                  {messages.map((message) => (
+                    <div key={message.id} className={cn("flex", message.role === "guest" ? "justify-end" : "justify-start")}>
+                      <div
+                        className={cn(
+                          "max-w-[85%] rounded-[1.3rem] px-4 py-3 text-sm leading-6",
+                          message.role === "guest"
+                            ? "bg-[#08141F] text-white"
+                            : "border border-foreground/8 bg-white/88 text-foreground"
+                        )}
+                      >
+                        {message.text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {leoQuickPrompts.map((prompt) => (
+                    <button
+                      key={prompt}
+                      className="rounded-full border border-foreground/8 bg-white/82 px-3 py-2 text-left text-sm font-medium text-foreground transition hover:bg-white"
+                      onClick={() => addConversation(prompt)}
+                      type="button"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                  <Input
+                    className="h-12 rounded-full bg-white/86 px-4"
+                    onChange={(event) => setDraft(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        handleSend();
+                      }
+                    }}
+                    placeholder="Ask Leo anything about Cape Town..."
+                    value={draft}
+                  />
+                  <Button className="h-12 rounded-full px-5 text-white" onClick={handleSend}>
+                    Send
+                  </Button>
+                  <Button className="h-12 rounded-full px-5" onClick={handleVoiceDemo} type="button" variant="outline">
+                    <MicIcon className="size-4" />
+                    {isListening ? "Listening..." : "Voice demo"}
+                  </Button>
+                </div>
               </div>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Leo can route you into bookings, hold premium requests, and keep your next move tied to the same guest profile and payment flow.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link className={cn(buttonVariants(), "rounded-full px-5 text-white")} href="/book">
-                  Open booking desk
-                </Link>
-                <Link className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")} href="/profile">
-                  Open my profile
-                </Link>
+              <div className="rounded-[1.4rem] border border-foreground/8 bg-white/72 p-4">
+                <div className="flex items-center gap-3">
+                  <SparklesIcon className="size-5 text-[#00A3E6]" />
+                  <p className="font-semibold">What Leo can help with</p>
+                </div>
+                <div className="mt-4 space-y-3">
+                  {leoActions.map((action) => (
+                    <Link
+                      key={action.title}
+                      className="block rounded-[1.3rem] border border-foreground/8 bg-white/82 p-4 transition hover:bg-white"
+                      href={action.href}
+                    >
+                      <p className="font-medium">{action.title}</p>
+                      <p className="mt-1 text-sm leading-6 text-muted-foreground">{action.copy}</p>
+                    </Link>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-[1.3rem] border border-foreground/8 bg-white/82 p-4 text-sm leading-6 text-muted-foreground">
+                  Voice input is demoed here with a simulated transcript so guests can understand how a hands-free concierge interaction would feel.
+                </div>
               </div>
             </div>
           </div>
-          <div className="space-y-4">
-            <div className="chapter-card">
-              <div className="flex items-center gap-3">
-                <MessageSquareTextIcon className="size-5 text-[#FF6B4A]" />
-                <p className="font-semibold">Tonight&apos;s pulse</p>
-              </div>
-              <div className="mt-4 grid gap-3">
-                {heatZones.slice(0, 3).map((zone) => (
-                  <div key={zone.id} className="rounded-[1.3rem] border border-foreground/8 bg-white/72 p-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">{zone.emoji}</span>
-                        <div>
-                          <p className="font-medium">{zone.name}</p>
-                          <p className="text-sm text-muted-foreground">{zone.peakWindow}</p>
-                        </div>
-                      </div>
-                      <span className="metric-chip">{zone.activeNow} live</span>
-                    </div>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{zone.headline}</p>
-                  </div>
-                ))}
+          <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="space-y-4">
+              <div className="chapter-card">
+                <div className="flex items-center gap-3">
+                  <ShieldCheckIcon className="size-5 text-[#2F6B4F]" />
+                  <p className="font-semibold">Guest-ready flow</p>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  Leo can route guests into bookings, hold premium requests, and keep the next move tied to the same guest profile and payment flow.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <Link className={cn(buttonVariants(), "rounded-full px-5 text-white")} href="/book">
+                    Open booking desk
+                  </Link>
+                  <Link className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")} href="/profile">
+                    Open my profile
+                  </Link>
+                </div>
               </div>
             </div>
-            <div className="chapter-card">
-              <p className="section-tag">Recommended journeys</p>
-              <div className="mt-3 grid gap-3 md:grid-cols-3">
-                {tours.slice(0, 3).map((tour) => (
-                  <div key={tour.slug} className="rounded-[1.3rem] border border-foreground/8 bg-white/72 p-4">
-                    <p className="font-medium">{tour.name}</p>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{tour.tagline}</p>
-                  </div>
-                ))}
+            <div className="space-y-4">
+              <div className="chapter-card">
+                <div className="flex items-center gap-3">
+                  <MessageSquareTextIcon className="size-5 text-[#FF6B4A]" />
+                  <p className="font-semibold">Tonight&apos;s pulse</p>
+                </div>
+                <div className="mt-4 grid gap-3">
+                  {heatZones.slice(0, 3).map((zone) => (
+                    <div key={zone.id} className="rounded-[1.3rem] border border-foreground/8 bg-white/72 p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{zone.emoji}</span>
+                          <div>
+                            <p className="font-medium">{zone.name}</p>
+                            <p className="text-sm text-muted-foreground">{zone.peakWindow}</p>
+                          </div>
+                        </div>
+                        <span className="metric-chip">{zone.activeNow} live</span>
+                      </div>
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground">{zone.headline}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="chapter-card">
+                <p className="section-tag">Recommended journeys</p>
+                <div className="mt-3 grid gap-3 md:grid-cols-3">
+                  {tours.slice(0, 3).map((tour) => (
+                    <div key={tour.slug} className="rounded-[1.3rem] border border-foreground/8 bg-white/72 p-4">
+                      <p className="font-medium">{tour.name}</p>
+                      <p className="mt-2 text-sm leading-6 text-muted-foreground">{tour.tagline}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
