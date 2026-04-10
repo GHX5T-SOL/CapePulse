@@ -185,6 +185,7 @@ a {
   @apply rounded-full border border-white/70 px-3 py-2 text-[0.72rem] font-medium tracking-[0.22em] uppercase;
   background: rgba(255, 255, 255, 0.46);
   font-family: var(--font-plex-mono), monospace;
+  color: #08141f;
 }
 
 .refractive-border {
@@ -235,6 +236,51 @@ a {
   animation: pulse-halo 2.4s infinite;
 }
 
+.map-party-marker {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(8, 20, 31, 0.9);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0 18px 34px rgba(8, 20, 31, 0.22);
+  backdrop-filter: blur(10px);
+}
+
+.map-party-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.map-party-count {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.feed-marquee {
+  position: relative;
+  overflow: hidden;
+}
+
+.feed-marquee-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  animation: marquee-y 18s linear infinite;
+}
+
+.feed-marquee:hover .feed-marquee-track {
+  animation-play-state: paused;
+}
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -273,6 +319,15 @@ a {
   100% {
     transform: scale(1.2);
     opacity: 0;
+  }
+}
+
+@keyframes marquee-y {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
   }
 }
 

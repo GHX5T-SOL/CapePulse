@@ -5,10 +5,10 @@ export default function OpsLabPage() {
   return (
     <div className="page-shell space-y-8 py-8">
       <div className="chapter-card">
-        <p className="section-tag">Ops Lab</p>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight">Founder-facing proof that the frontend understands the operator reality.</h1>
+        <p className="section-tag">Service Desk</p>
+        <h1 className="mt-2 text-4xl font-semibold tracking-tight">The service desk behind the CapePulse experience.</h1>
         <p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">
-          The attached PDF is translated here into visible product behavior: availability-aware sales, itinerary logic, run-sheets, review assistance, sentiment loops, and compliance signals.
+          This page shows how CapePulse keeps planning, guest care, and premium requests feeling organized and easy without putting friction in front of the customer.
         </p>
       </div>
       <ConciergeLab />

@@ -7,8 +7,8 @@ export default function JournalPage() {
       <div className="chapter-card">
         <SectionIntro
           eyebrow="Journal"
-          title="The editorial layer: practical, atmospheric, and tied to actual movement."
-          copy="The journal keeps the city feeling alive between booking decisions. It is also the natural home for long-tail search, itinerary education, and seasonal storytelling."
+          title="Stories, ideas, and local shortcuts for doing Cape Town well."
+          copy="Use the journal to find better timing, smarter route ideas, softer local recommendations, and inspiration for what to book next."
         />
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

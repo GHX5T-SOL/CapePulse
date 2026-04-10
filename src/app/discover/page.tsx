@@ -25,8 +25,8 @@ export default function DiscoverPage() {
       <div className="chapter-card space-y-5">
         <SectionIntro
           eyebrow="Discover Cape"
-          title="Editorial routes through a city that changes by neighborhood, light, and pace."
-          copy="Discovery is grouped by mood: coastline, culture, fitness, nightlife, family pacing, and premium movement. The goal is to move people into the right route instead of showing every option at once."
+          title="Discover Cape Town by mood, moment, and the way you want to move."
+          copy="Start with coastline, culture, nightlife, food, fitness, family days, or premium movement, then turn any idea into a full booking in a few taps."
         />
       </div>
       <div className="grid gap-4 lg:grid-cols-3">
@@ -36,7 +36,7 @@ export default function DiscoverPage() {
       </div>
       <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="chapter-card">
-          <p className="section-tag">Neighborhood logic</p>
+          <p className="section-tag">Neighborhood highlights</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
               "Sea Point for fitness, coffee, and promenade life",
@@ -53,7 +53,7 @@ export default function DiscoverPage() {
           </div>
         </div>
         <div className="chapter-card">
-          <p className="section-tag">Recommended reads</p>
+          <p className="section-tag">Plan your next move</p>
           <div className="mt-4 space-y-4">
             {journalEntries.map((entry) => (
               <div key={entry.slug} className="rounded-[1.3rem] border border-foreground/8 bg-white/70 p-4">

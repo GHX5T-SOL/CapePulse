@@ -20,14 +20,14 @@ function HeatOverlay() {
 
   useEffect(() => {
     const heatLayer = (L as HeatLayerFactory).heatLayer(heatData, {
-      radius: 40,
-      blur: 28,
+      radius: 46,
+      blur: 30,
       maxZoom: 14,
       gradient: {
-        0.2: "#7FE4C3",
-        0.45: "#00A3E6",
-        0.7: "#FFB547",
-        1: "#FF6B4A",
+        0.2: "#FFD166",
+        0.45: "#FF8C42",
+        0.7: "#FF5D5D",
+        1: "#C81D25",
       },
     });
 
@@ -41,11 +41,13 @@ function HeatOverlay() {
   return null;
 }
 
-const markerIcon = L.divIcon({
-  className: "capepulse-live-icon",
-  html: '<div class="map-pulse"></div>',
-  iconAnchor: [8, 8],
-});
+function createMarkerIcon(emoji: string, activeNow: number) {
+  return L.divIcon({
+    className: "capepulse-live-icon",
+    html: `<div class="map-party-marker"><span class="map-party-emoji">${emoji}</span><span class="map-party-count">${activeNow} live</span></div>`,
+    iconAnchor: [28, 18],
+  });
+}
 
 export function LiveMap({ condensed = false }: { condensed?: boolean }) {
   const [mounted, setMounted] = useState(false);
@@ -67,12 +69,16 @@ export function LiveMap({ condensed = false }: { condensed?: boolean }) {
         />
         <HeatOverlay />
         {heatZones.map((zone) => (
-          <Marker key={zone.id} icon={markerIcon} position={zone.coordinates}>
+          <Marker key={zone.id} icon={createMarkerIcon(zone.emoji, zone.activeNow)} position={zone.coordinates}>
             <Popup>
-              <div className="space-y-1">
-                <p className="font-semibold">{zone.name}</p>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">{zone.emoji}</span>
+                  <p className="font-semibold">{zone.name}</p>
+                </div>
                 <p className="text-sm text-slate-600">{zone.headline}</p>
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{zone.activeNow} active now</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{zone.peakWindow}</p>
+                <p className="text-xs text-slate-500">Hot spots: {zone.topSpots.join(" · ")}</p>
               </div>
             </Popup>
           </Marker>

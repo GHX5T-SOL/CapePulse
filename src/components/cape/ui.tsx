@@ -32,7 +32,7 @@ export function LogoMark({ compact = false }: { compact?: boolean }) {
       </div>
       <div>
         <p className="font-heading text-lg font-semibold tracking-tight text-foreground">CapePulse</p>
-        {!compact ? <p className="section-tag mt-0.5">Cape Town, personally orchestrated.</p> : null}
+        {!compact ? <p className="section-tag mt-0.5">Book Cape Town. Feel the pulse.</p> : null}
       </div>
     </div>
   );
@@ -116,13 +116,13 @@ export function ActionPair({
 }) {
   return (
     <>
-      <Link className={cn(buttonVariants({ size: "lg" }), "h-11 rounded-full px-5")} href={primaryHref}>
+      <Link className={cn(buttonVariants({ size: "lg" }), "h-11 rounded-full px-5 text-white")} href={primaryHref}>
         {primaryLabel}
       </Link>
       <Link
         className={cn(
           buttonVariants({ size: "lg", variant: "outline" }),
-          "h-11 rounded-full bg-white/35 text-foreground hover:bg-white/50"
+          "h-11 rounded-full bg-white/86 px-5 text-[#08141F] hover:bg-white"
         )}
         href={secondaryHref}
       >

@@ -7,8 +7,8 @@ export default function ExperiencesPage() {
       <div className="chapter-card">
         <SectionIntro
           eyebrow="Experiences"
-          title="Everything that makes Cape Town feel bigger than a single tour."
-          copy="Helicopter arcs, yacht sessions, club tables, padel blocks, picnic setups, photo overlays, and the softer local moves that make a city addictive."
+          title="Everything that makes Cape Town feel bigger than a single booking."
+          copy="Add helicopters, yachts, padel, nightlife, dining, airport movement, villa planning, and gifting to any day so the trip feels complete."
         />
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

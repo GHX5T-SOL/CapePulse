@@ -6,9 +6,9 @@ export default function SocialPage() {
     <div className="page-shell space-y-8 py-8">
       <div className="chapter-card">
         <SectionIntro
-          eyebrow="Social Hub"
-          title="Locals and travelers, finally on the same surface."
-          copy="The social layer mixes a feed, check-ins, location energy, DMs, relationship-status cues, and fitness culture so the city feels inhabited, not merely visitable."
+          eyebrow="CapePulse App"
+          title="See the people, places, and plans shaping Cape Town right now."
+          copy="CapePulse blends a live city feed, profiles, DMs, and nightlife energy so people can move from seeing what’s happening to joining it immediately."
         />
       </div>
       <div className="grid gap-4 xl:grid-cols-[1fr_0.9fr]">
@@ -19,7 +19,7 @@ export default function SocialPage() {
         </div>
         <div className="space-y-4">
           <div className="chapter-card">
-            <p className="section-tag">Profiles</p>
+            <p className="section-tag">Who is using CapePulse</p>
             <div className="mt-4 space-y-3">
               {users.map((user) => (
                 <div key={user.id} className="rounded-[1.3rem] border border-foreground/8 bg-white/70 p-4">
@@ -38,7 +38,7 @@ export default function SocialPage() {
             </div>
           </div>
           <div className="chapter-card">
-            <p className="section-tag">DM previews</p>
+            <p className="section-tag">Plan-making chats</p>
             <div className="mt-4 space-y-3">
               {dmThreads.map((thread) => (
                 <div key={thread.id} className="rounded-[1.3rem] border border-foreground/8 bg-white/70 p-4">

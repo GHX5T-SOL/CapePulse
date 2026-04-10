@@ -92,15 +92,15 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
           <div className="chapter-card">
             <Accordion>
               <AccordionItem value="faq-1">
-                <AccordionTrigger>How availability-aware is this demo?</AccordionTrigger>
+                <AccordionTrigger>Can I customize the day?</AccordionTrigger>
                 <AccordionContent>
-                  The frontend demonstrates availability logic through seeded API routes. It shows how CapePulse would overlay real booking windows without pretending the mock is live inventory.
+                  Yes. CapePulse is built for flexible pacing, private upgrades, scenic stops, family needs, dining add-ons, and post-tour plans that fit the mood of your group.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="faq-2">
-                <AccordionTrigger>Can CapePulse handle special requests?</AccordionTrigger>
+                <AccordionTrigger>Can CapePulse add transfers, tables, or VIP support?</AccordionTrigger>
                 <AccordionContent>
-                  Yes. The model is to capture pace, mobility, family, romance, or VIP notes early, then route them into human review and operational handoff when needed.
+                  Absolutely. Airport pickups, chauffeurs, dinner reservations, nightlife routing, luxury transport, villas, private air, and premium support can all be layered onto the same booking.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

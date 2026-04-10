@@ -7,8 +7,8 @@ export default function ToursPage() {
       <div className="chapter-card">
         <SectionIntro
           eyebrow="Tours"
-          title="Filterable journeys across coastline, city, safari, romance, family pace, and VIP movement."
-          copy="Each tour is presented like a product and an operating plan at the same time. That means strong media, clear pricing posture, realistic durations, and route credibility."
+          title="Cape Town journeys built for coastlines, city icons, safaris, romance, family days, and premium arrivals."
+          copy="Every tour is designed to feel easy to choose, easy to customize, and easy to book with the right upgrades already close by."
         />
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

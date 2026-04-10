@@ -27,15 +27,15 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://capepulse.vercel.app"),
   title: {
-    default: "CapePulse | Cape Town, personally orchestrated.",
+    default: "CapePulse | Book Cape Town. Feel the pulse.",
     template: "%s | CapePulse",
   },
   description:
-    "CapePulse is a premium Cape Town experience hub blending private tours, live city discovery, AI concierge demos, and discreet VIP logistics.",
+    "CapePulse is Cape Town's booking and live-city platform for tours, activities, nightlife, airport transfers, luxury travel, and premium guest movement.",
   openGraph: {
     title: "CapePulse",
     description:
-      "The bright liquid-glass Cape Town travel platform for private journeys, social discovery, and AI-powered planning.",
+      "The bright Cape Town travel platform for bookings, nightlife discovery, transfers, concierge planning, and premium movement.",
     type: "website",
   },
 };

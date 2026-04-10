@@ -47,8 +47,17 @@ export function SiteHeader() {
             })}
           </nav>
           <div className="flex items-center gap-2">
-            <Link className={cn(buttonVariants(), "hidden rounded-full px-4 lg:inline-flex")} href="/book">
-              Start your journey
+            <Link
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "hidden rounded-full px-4 text-[#08141F] shadow-[0_12px_28px_rgba(8,20,31,0.08)] lg:inline-flex"
+              )}
+              href="/profile"
+            >
+              Waseem Dada
+            </Link>
+            <Link className={cn(buttonVariants(), "hidden rounded-full px-4 text-white lg:inline-flex")} href="/book">
+              Book now
             </Link>
             <Sheet>
               <SheetTrigger render={<Button variant="outline" size="icon-sm" className="rounded-full lg:hidden" />}>
@@ -61,6 +70,12 @@ export function SiteHeader() {
                 <div className="mt-8 space-y-3">
                   <LogoMark />
                   <div className="flex flex-col gap-2 pt-4">
+                    <Link className="rounded-2xl bg-[#08141F] px-4 py-3 text-base font-semibold text-white" href="/book">
+                      Book now
+                    </Link>
+                    <Link className="rounded-2xl border border-foreground/8 bg-white/70 px-4 py-3 text-base font-medium" href="/profile">
+                      Waseem Dada
+                    </Link>
                     {navItems.map((item) => (
                       <Link
                         key={item.href}

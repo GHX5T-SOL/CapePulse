@@ -11,13 +11,11 @@ export function SiteFooter() {
           <div className="space-y-4">
             <LogoMark />
             <p className="max-w-xl text-sm leading-7 text-muted-foreground">
-              CapePulse is a frontend demo for a Cape Town intelligence-and-experience platform. It shows how private touring,
-              social discovery, AI concierge workflows, and partner-facilitated VIP logistics can live in one bright, operationally
-              credible product.
+              CapePulse brings Cape Town tours, activities, nightlife, airport movement, concierge planning, and premium guest support into one clear booking experience.
             </p>
           </div>
           <div>
-            <p className="section-tag mb-4">Routes</p>
+            <p className="section-tag mb-4">Explore</p>
             <div className="grid grid-cols-2 gap-3 text-sm text-muted-foreground">
               {navItems.map((item) => (
                 <Link key={item.href} className="hover:text-foreground" href={item.href}>
@@ -27,7 +25,7 @@ export function SiteFooter() {
             </div>
           </div>
           <div>
-            <p className="section-tag mb-4">Trust notes</p>
+            <p className="section-tag mb-4">Guest standards</p>
             <div className="space-y-3 text-sm leading-6 text-muted-foreground">
               {complianceNotes.map((note) => (
                 <div key={note.id}>
@@ -39,9 +37,9 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="grid gap-3 border-t border-foreground/8 pt-5 text-xs text-muted-foreground md:grid-cols-3">
-          <p>POPIA-aware demo. Human handoff remains visible in all automated flows.</p>
-          <p>WhatsApp logic shown conceptually only. Sensitive data stays out of chat.</p>
-          <p>VIP and security services are represented as partner-facilitated, subject to legal and operational review.</p>
+          <p>Licensed guides, trusted vehicles, and polished guest coordination across the city.</p>
+          <p>Secure payment rails, protected guest data, and a concierge line that stays easy to reach.</p>
+          <p>From value-friendly bookings to ultra-luxury requests, CapePulse is built to move at your pace.</p>
         </div>
       </div>
     </footer>

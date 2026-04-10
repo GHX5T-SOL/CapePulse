@@ -111,6 +111,10 @@ export interface HeatZone {
   intensity: number;
   activeNow: number;
   headline: string;
+  emoji: string;
+  peakWindow: string;
+  topSpots: string[];
+  crowdNote: string;
 }
 
 export interface UserProfile {

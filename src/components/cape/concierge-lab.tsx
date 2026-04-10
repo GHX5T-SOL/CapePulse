@@ -2,273 +2,151 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ArrowRightLeftIcon, BotMessageSquareIcon, MessageSquareQuoteIcon, ScanSearchIcon } from "lucide-react";
+import { MessageSquareTextIcon, ShieldCheckIcon, SparklesIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { reviewItems } from "@/lib/site-data";
-import type { ReviewReplyDraft, RunSheet, SentimentSummary, VipRequest } from "@/lib/types";
+import { heatZones, tours } from "@/lib/site-data";
+import { cn } from "@/lib/utils";
 
 export function ConciergeLab() {
-  const [tourSlug, setTourSlug] = useState("peninsula-signal-route");
-  const [reviewId, setReviewId] = useState(reviewItems[0].id);
-  const [requester, setRequester] = useState("Embassy arrival desk");
-  const [sentiment, setSentiment] = useState<SentimentSummary | null>(null);
-  const [reviewReply, setReviewReply] = useState<ReviewReplyDraft | null>(null);
-  const [runSheet, setRunSheet] = useState<RunSheet | null>(null);
-  const [vipResponse, setVipResponse] = useState<VipRequest | null>(null);
+  const [tourSlug, setTourSlug] = useState(tours[0].slug);
+  const [requester, setRequester] = useState("Waseem Dada");
+  const [vipBrief, setVipBrief] = useState("Landing at CTIA, need airport reception, private transfer, villa check-in, and a dinner reservation.");
+  const [vipReply, setVipReply] = useState("");
 
-  const selectedReview = useMemo(() => reviewItems.find((item) => item.id === reviewId) ?? reviewItems[0], [reviewId]);
+  const selectedTour = useMemo(() => tours.find((tour) => tour.slug === tourSlug) ?? tours[0], [tourSlug]);
 
-  async function readJsonOrThrow<T>(response: Response): Promise<T> {
-    const payload = (await response.json().catch(() => null)) as T & { error?: string } | null;
-
-    if (!response.ok) {
-      throw new Error(payload?.error ?? "The demo request could not be completed.");
-    }
-
-    return payload as T;
-  }
-
-  async function loadSentiment() {
-    try {
-      const response = await fetch("/api/demo/sentiment", { method: "POST" });
-      const data = await readJsonOrThrow<{ summary: SentimentSummary }>(response);
-      setSentiment(data.summary);
-      toast.success("Sentiment summary generated");
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Sentiment request failed.");
-    }
-  }
-
-  async function loadReviewReply() {
-    try {
-      const response = await fetch("/api/demo/review-response", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reviewId }),
-      });
-      const data = await readJsonOrThrow<{ reply: ReviewReplyDraft }>(response);
-      setReviewReply(data.reply);
-      toast.success("Review draft ready");
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Review drafting failed.");
-    }
-  }
-
-  async function loadRunSheet() {
-    try {
-      const response = await fetch("/api/demo/run-sheet", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tourSlug }),
-      });
-      const data = await readJsonOrThrow<{ runSheet: RunSheet }>(response);
-      setRunSheet(data.runSheet);
-      toast.success("Run-sheet generated");
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Run-sheet generation failed.");
-    }
-  }
-
-  async function loadVipRequest() {
-    try {
-      const response = await fetch("/api/demo/vip-request", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ requester, level: "Black" }),
-      });
-      const data = await readJsonOrThrow<{ response: VipRequest }>(response);
-      setVipResponse(data.response);
-      toast.success("VIP intake staged");
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "VIP intake failed.");
-    }
+  function stageVipRequest() {
+    setVipReply(
+      "Your request has been staged with the private desk. CapePulse is preparing an arrival flow with premium vehicle placement, villa timing, and post-landing dining options."
+    );
+    toast.success("Private request staged");
   }
 
   return (
     <div className="space-y-6">
       <div className="max-w-3xl">
-        <p className="section-tag">AI workflow lab</p>
-        <h2 className="mt-2 text-4xl font-semibold tracking-tight text-foreground">Turn the PDF’s use cases into live product behavior.</h2>
+        <p className="section-tag">Concierge</p>
+        <h2 className="mt-2 text-4xl font-semibold tracking-tight text-foreground">Ask once. Get the next best move.</h2>
         <p className="mt-3 text-base leading-7 text-muted-foreground">
-          These surfaces show the AI pieces that matter operationally: quoting, handoffs, review drafting, sentiment summaries, run-sheets,
-          and VIP intake.
+          CapePulse helps guests decide what to book, where to go tonight, and how to move through the city with less friction and more confidence.
         </p>
       </div>
-      <Tabs defaultValue="ops">
-        <TabsList>
-          <TabsTrigger value="ops">Ops</TabsTrigger>
-          <TabsTrigger value="reviews">Reviews</TabsTrigger>
-          <TabsTrigger value="vip">VIP intake</TabsTrigger>
-        </TabsList>
-        <TabsContent value="ops" className="mt-4 grid gap-4 lg:grid-cols-[1fr_1.15fr]">
-          <Card className="glass-panel border-white/70">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <ArrowRightLeftIcon className="size-5 text-[#00A3E6]" />
-                Run-sheet builder
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Input onChange={(event) => setTourSlug(event.target.value)} value={tourSlug} />
-              <Button className="rounded-full" onClick={loadRunSheet}>
-                Generate run-sheet
-              </Button>
-            </CardContent>
-          </Card>
-          <Card className="glass-panel border-white/70">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <ScanSearchIcon className="size-5 text-[#2F6B4F]" />
-                Sentiment and improvement loops
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button className="rounded-full" onClick={loadSentiment} variant="outline">
-                Summarize review sentiment
-              </Button>
-              {sentiment ? (
-                <div className="space-y-4 text-sm text-muted-foreground">
-                  <div>
-                    <p className="font-medium text-foreground">Positive themes</p>
-                    <p>{sentiment.positiveThemes.join(" · ")}</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Friction themes</p>
-                    <p>{sentiment.frictionThemes.join(" · ")}</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Next actions</p>
-                    <p>{sentiment.actions.join(" · ")}</p>
-                  </div>
-                </div>
-              ) : null}
-            </CardContent>
-          </Card>
-          {runSheet ? (
-            <Card className="glass-panel border-white/70 lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BotMessageSquareIcon className="size-5 text-[#FF6B4A]" />
-                  Demo run-sheet preview
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <p>
-                    <span className="font-medium text-foreground">Booking:</span> {runSheet.bookingCode}
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Guide:</span> {runSheet.guide}
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Vehicle:</span> {runSheet.vehicle}
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Pickup:</span> {runSheet.pickup}
-                  </p>
-                </div>
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <p className="font-medium text-foreground">Briefing notes</p>
-                  {runSheet.briefing.map((note) => (
-                    <p key={note}>{note}</p>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ) : null}
-        </TabsContent>
-        <TabsContent value="reviews" className="mt-4 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-          <Card className="glass-panel border-white/70">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MessageSquareQuoteIcon className="size-5 text-[#00A3E6]" />
-                Review response assistant
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {reviewItems.map((review) => (
+      <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="space-y-4">
+          <div className="chapter-card">
+            <div className="flex items-center gap-3">
+              <SparklesIcon className="size-5 text-[#00A3E6]" />
+              <p className="font-semibold">Build my day plan</p>
+            </div>
+            <div className="mt-4 grid gap-3">
+              {tours.slice(0, 4).map((tour) => (
                 <button
-                  key={review.id}
-                  className={`w-full rounded-[1.2rem] border px-4 py-3 text-left ${review.id === reviewId ? "border-foreground/12 bg-accent" : "border-foreground/8 bg-white/60"}`}
-                  onClick={() => setReviewId(review.id)}
+                  key={tour.slug}
+                  className={cn(
+                    "rounded-[1.2rem] border px-4 py-3 text-left transition",
+                    tourSlug === tour.slug ? "border-[#08141F]/18 bg-accent" : "border-foreground/8 bg-white/60"
+                  )}
+                  onClick={() => setTourSlug(tour.slug)}
                   type="button"
                 >
-                  <p className="font-medium">{review.guest}</p>
-                  <p className="text-sm text-muted-foreground">{review.rating}★ on {review.channel}</p>
+                  <p className="font-medium">{tour.name}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{tour.tagline}</p>
                 </button>
               ))}
-              <Button className="rounded-full" onClick={loadReviewReply}>
-                Draft response
-              </Button>
-            </CardContent>
-          </Card>
-          <Card className="glass-panel border-white/70">
-            <CardHeader>
-              <CardTitle>Selected review</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-[1.2rem] border border-foreground/8 bg-white/70 p-4 text-sm leading-7 text-muted-foreground">
-                {selectedReview.body}
+            </div>
+            <div className="mt-4 rounded-[1.3rem] border border-foreground/8 bg-white/72 p-4">
+              <p className="font-medium">{selectedTour.name}</p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">{selectedTour.summary}</p>
+              <div className="mt-4 grid gap-3">
+                {selectedTour.itinerary.slice(0, 3).map((stop) => (
+                  <div key={`${stop.time}-${stop.title}`} className="rounded-[1.1rem] border border-foreground/8 bg-white/70 p-4">
+                    <p className="section-tag">{stop.time}</p>
+                    <p className="mt-1 font-medium">{stop.title}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{stop.detail}</p>
+                  </div>
+                ))}
               </div>
-              {reviewReply ? (
-                <div className="rounded-[1.2rem] border border-foreground/8 bg-white/70 p-4 text-sm leading-7 text-muted-foreground">
-                  <p className="section-tag mb-2">Tone: {reviewReply.tone}</p>
-                  <p>{reviewReply.response}</p>
+            </div>
+          </div>
+          <div className="chapter-card">
+            <div className="flex items-center gap-3">
+              <MessageSquareTextIcon className="size-5 text-[#FF6B4A]" />
+              <p className="font-semibold">Tonight&apos;s best move</p>
+            </div>
+            <div className="mt-4 grid gap-3">
+              {heatZones.slice(0, 3).map((zone) => (
+                <div key={zone.id} className="rounded-[1.2rem] border border-foreground/8 bg-white/72 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{zone.emoji}</span>
+                      <div>
+                        <p className="font-medium">{zone.name}</p>
+                        <p className="text-sm text-muted-foreground">{zone.peakWindow}</p>
+                      </div>
+                    </div>
+                    <span className="metric-chip">{zone.activeNow} live</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{zone.crowdNote}</p>
                 </div>
-              ) : null}
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="vip" className="mt-4 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-          <Card className="glass-panel border-white/70">
-            <CardHeader>
-              <CardTitle>Rapid-response intake</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
+              ))}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link className={cn(buttonVariants(), "rounded-full px-5 text-white")} href="/social/live-map">
+                Open live map
+              </Link>
+              <Link className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-5")} href="/book">
+                Reserve a table or ride
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <div className="chapter-card">
+            <div className="flex items-center gap-3">
+              <ShieldCheckIcon className="size-5 text-[#2F6B4F]" />
+              <p className="font-semibold">Private request line</p>
+            </div>
+            <div className="mt-4 space-y-3">
               <Input onChange={(event) => setRequester(event.target.value)} value={requester} />
-              <Textarea defaultValue="Principal landing at CTIA. Need discreet transfer corridor, restaurant privacy, and partner security review." />
+              <Textarea className="min-h-36" onChange={(event) => setVipBrief(event.target.value)} value={vipBrief} />
               <div className="flex flex-wrap gap-3">
-                <Button className="rounded-full" onClick={loadVipRequest}>
-                  Stage VIP request
+                <Button className="rounded-full" onClick={stageVipRequest}>
+                  Stage private request
                 </Button>
                 <Link className={buttonVariants({ className: "rounded-full", variant: "outline" })} href="/vip">
-                  Open VIP command center
+                  Open VIP page
                 </Link>
               </div>
-              {vipResponse ? (
-                <div className="rounded-[1.2rem] border border-foreground/8 bg-white/70 p-4 text-sm leading-7 text-muted-foreground">
-                  <p>
-                    <span className="font-medium text-foreground">Requester:</span> {vipResponse.requester}
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Service level:</span> {vipResponse.serviceLevel}
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">Response SLA:</span> {vipResponse.responseTime}
-                  </p>
-                  <p className="mt-2">{vipResponse.nextAction}</p>
+            </div>
+          </div>
+          <div className="chapter-card">
+            <p className="section-tag">Concierge response</p>
+            <div className="mt-4 rounded-[1.2rem] border border-foreground/8 bg-white/72 p-4 text-sm leading-7 text-muted-foreground">
+              <p className="font-medium text-foreground">{requester}</p>
+              <p className="mt-2">{vipReply || "Share the timing, guest count, arrival point, and desired experience, and CapePulse will shape the next step."}</p>
+            </div>
+          </div>
+          <div className="chapter-card">
+            <p className="font-medium">Popular concierge prompts</p>
+            <div className="mt-4 grid gap-3">
+              {[
+                "Build me a relaxed Cape Town day with lunch, penguins, and sunset drinks.",
+                "What is the hottest zone tonight for dinner and a fun crowd?",
+                "I need an airport pickup, a villa handoff, and a driver on standby.",
+                "Plan something giftable for a couple visiting for the weekend.",
+              ].map((prompt) => (
+                <div key={prompt} className="rounded-[1.2rem] border border-foreground/8 bg-white/72 px-4 py-3 text-sm text-muted-foreground">
+                  {prompt}
                 </div>
-              ) : null}
-            </CardContent>
-          </Card>
-          <Card className="glass-panel border-white/70">
-            <CardHeader>
-              <CardTitle>Demo handling note</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm leading-7 text-muted-foreground">
-              <p>{requester}</p>
-              <p>Initial response SLA: 15 minutes. Human concierge and partner checks remain required for security, insurance, and route control.</p>
-              <p>{vipResponse?.notice ?? "WhatsApp is used only as a surfaced channel metaphor here. Sensitive identifiers remain outside automated chat flows."}</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
