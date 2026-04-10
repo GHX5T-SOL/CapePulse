@@ -303,7 +303,9 @@ export function BookingFlow() {
               key={option}
               className={cn(
                 "rounded-full border px-4 py-2 text-sm font-medium transition",
-                tier === option ? "border-[#08141F] bg-[#08141F] text-white" : "border-foreground/8 bg-white/75 text-foreground"
+                tier === option
+                  ? "border-[#08141F] bg-[#08141F] !text-white hover:!text-white focus-visible:!text-white"
+                  : "border-foreground/8 bg-white/75 text-foreground"
               )}
               onClick={() => setTier(option)}
               type="button"
@@ -444,7 +446,9 @@ export function BookingFlow() {
                   key={band}
                   className={cn(
                     "rounded-full border px-4 py-2 text-sm font-medium transition",
-                    budgetBand === band ? "border-[#08141F] bg-[#08141F] text-white" : "border-foreground/8 bg-white/65 text-foreground"
+                    budgetBand === band
+                      ? "border-[#08141F] bg-[#08141F] !text-white hover:!text-white focus-visible:!text-white"
+                      : "border-foreground/8 bg-white/65 text-foreground"
                   )}
                   onClick={() => setBudgetBand(band)}
                   type="button"
@@ -487,7 +491,9 @@ export function BookingFlow() {
               <button
                 className={cn(
                   "rounded-full border px-4 py-2 text-sm font-medium transition",
-                  giftMode ? "border-[#08141F] bg-[#08141F] text-white" : "border-foreground/8 bg-white/65 text-foreground"
+                  giftMode
+                    ? "border-[#08141F] bg-[#08141F] !text-white hover:!text-white focus-visible:!text-white"
+                    : "border-foreground/8 bg-white/65 text-foreground"
                 )}
                 onClick={() => setGiftMode((current) => !current)}
                 type="button"
@@ -602,7 +608,9 @@ export function BookingFlow() {
                   key={method}
                   className={cn(
                     "rounded-full border px-4 py-2 text-sm font-medium transition",
-                    paymentRail === method ? "border-[#08141F] bg-[#08141F] text-white" : "border-foreground/8 bg-white/70 text-foreground"
+                    paymentRail === method
+                      ? "border-[#08141F] bg-[#08141F] !text-white hover:!text-white focus-visible:!text-white"
+                      : "border-foreground/8 bg-white/70 text-foreground"
                   )}
                   onClick={() => setPaymentRail(method)}
                   type="button"

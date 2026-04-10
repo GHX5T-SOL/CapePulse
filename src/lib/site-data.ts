@@ -20,7 +20,7 @@ export const navItems = [
   { href: "/concierge", label: "AI Concierge" },
   { href: "/vip", label: "VIP" },
   { href: "/book", label: "Book" },
-  { href: "/profile", label: "Profile" },
+  { href: "/profile", label: "My Profile" },
 ];
 
 export const spotlightImages = {
